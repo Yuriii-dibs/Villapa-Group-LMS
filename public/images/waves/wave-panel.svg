@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" preserveAspectRatio="none" fill="none">
+  <defs>
+    <linearGradient id="panelIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14365D" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#071321" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="panelGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C5A059" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#F5E4B5" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#C5A059" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 1: Swell -->
+  <path d="M0,110 C80,75 160,150 240,115 C320,80 400,155 480,115 C540,85 570,110 600,120 V240 H0 Z" fill="#1B4965" fill-opacity="0.35"/>
+
+  <!-- Layer 2: Main billow -->
+  <path d="M0,145 C80,105 160,185 240,145 C320,105 400,185 480,145 C540,115 570,140 600,150 V240 H0 Z" fill="url(#panelIndigo)"/>
+
+  <!-- Kanagawa wave curl claws -->
+  <path d="M75,138 C95,115 110,95 125,108 C132,115 128,128 116,134 M315,138 C335,115 350,95 365,108 C372,115 368,128 356,134" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <circle cx="126" cy="100" r="1.8" fill="#FFFFFF" fill-opacity="0.9"/>
+  <circle cx="366" cy="100" r="1.8" fill="#FFFFFF" fill-opacity="0.9"/>
+
+  <!-- Golden luxury crest trim -->
+  <path d="M0,145 C80,105 160,185 240,145 C320,105 400,185 480,145 C540,115 570,140 600,150" stroke="url(#panelGold)" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- Base fill -->
+  <path d="M0,185 C90,150 180,220 270,185 C360,150 450,220 540,185 C570,170 590,180 600,185 V240 H0 Z" fill="#0A192F" fill-opacity="0.85"/>
+</svg>

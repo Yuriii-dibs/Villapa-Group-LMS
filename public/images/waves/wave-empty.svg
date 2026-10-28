@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80" fill="none">
+  <defs>
+    <linearGradient id="emptyGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C5A059"/>
+      <stop offset="50%" stop-color="#EED59B"/>
+      <stop offset="100%" stop-color="#C5A059"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Traditional concentric Seigaiha wave arches -->
+  <path d="M10,55 C22,40 38,40 50,55 M50,55 C62,40 78,40 90,55 M90,55 C102,40 118,40 130,55 M130,55 C142,40 152,45 156,55" stroke="#1B4965" stroke-width="2" stroke-linecap="round" stroke-opacity="0.35"/>
+  
+  <path d="M18,55 C28,44 42,44 52,55 M58,55 C68,44 82,44 92,55 M98,55 C108,44 122,44 132,55" stroke="url(#emptyGold)" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Iconic curling Kanagawa crest hook in center -->
+  <path d="M42,50 C55,28 72,20 86,28 C94,33 93,44 82,46 C74,48 70,42 75,37" stroke="#14365D" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+  <circle cx="94" cy="24" r="2.2" fill="#C5A059"/>
+  <circle cx="102" cy="30" r="1.6" fill="#14365D"/>
+  <circle cx="70" cy="22" r="1.4" fill="#C5A059"/>
+</svg>

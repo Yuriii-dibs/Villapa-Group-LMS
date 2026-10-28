@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" fill="none">
+  <defs>
+    <linearGradient id="deepIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#071321" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#14365D" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="aizomeBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#227B94"/>
+      <stop offset="100%" stop-color="#0E2737"/>
+    </linearGradient>
+    <linearGradient id="goldShimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C5A059" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#F3E5AB" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#C5A059" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Distant gentle ocean swells -->
+  <path d="M0,180 C200,140 340,240 540,190 C720,145 900,230 1100,180 C1260,140 1360,190 1440,170 V320 H0 Z" fill="#14365D" fill-opacity="0.35"/>
+  <path d="M0,205 C180,165 360,250 560,205 C760,160 960,240 1160,200 C1300,170 1380,210 1440,195 V320 H0 Z" fill="url(#deepIndigo)" fill-opacity="0.6"/>
+
+  <!-- Great Kanagawa crest wave silhouettes (left-to-right ukiyo-e billows) -->
+  <path d="M0,225 C140,170 280,270 460,215 C600,170 700,230 840,190 C960,155 1060,230 1200,185 C1320,150 1390,190 1440,175 V320 H0 Z" fill="url(#aizomeBlue)" fill-opacity="0.75"/>
+
+  <!-- Iconic curling Kanagawa claws and spray -->
+  <path d="M70,220 C100,180 120,150 140,165 C150,175 145,195 130,205 M280,245 C320,195 345,170 365,185 C375,195 370,215 350,230 M620,205 C650,155 680,135 700,150 C710,162 705,180 685,195 M1020,195 C1055,145 1090,125 1115,142 C1125,155 1115,175 1090,190" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  
+  <!-- Droplet spray particles -->
+  <circle cx="142" cy="155" r="2.5" fill="#FFFFFF" fill-opacity="0.85"/>
+  <circle cx="155" cy="165" r="2" fill="#FFFFFF" fill-opacity="0.7"/>
+  <circle cx="368" cy="172" r="2.5" fill="#FFFFFF" fill-opacity="0.85"/>
+  <circle cx="380" cy="182" r="1.8" fill="#FFFFFF" fill-opacity="0.7"/>
+  <circle cx="704" cy="138" r="3" fill="#FFFFFF" fill-opacity="0.9"/>
+  <circle cx="718" cy="148" r="2" fill="#FFFFFF" fill-opacity="0.8"/>
+  <circle cx="1120" cy="130" r="3" fill="#FFFFFF" fill-opacity="0.9"/>
+  <circle cx="1132" cy="140" r="2.2" fill="#FFFFFF" fill-opacity="0.8"/>
+
+  <!-- Gold leaf foam contour line (Minimal luxury accent) -->
+  <path d="M0,238 C140,185 280,285 460,230 C600,185 700,245 840,205 C960,170 1060,245 1200,200 C1320,165 1390,205 1440,190" stroke="url(#goldShimmer)" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Frothy white crest foam line -->
+  <path d="M0,242 C140,189 280,289 460,234 C600,189 700,249 840,209 C960,174 1060,249 1200,204 C1320,169 1390,209 1440,194 V320 H0 Z" fill="#F8F5EE"/>
+</svg>

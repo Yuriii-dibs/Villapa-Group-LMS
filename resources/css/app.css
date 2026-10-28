@@ -1,0 +1,268 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* Self-hosted fonts (work offline, no external requests) */
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/inter-latin-wght-normal.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Lora';
+    src: url('../fonts/lora-latin-wght-normal.woff2') format('woff2');
+    font-weight: 400 700;
+    font-display: swap;
+}
+
+/*
+ | DESIGN TOKENS - JAPANESE KANAGAWA WAVE & MINIMAL LUXURY
+ | Deep Prussian indigos, wave froths, washi ivory papers, and Kinpaku (gold leaf).
+ */
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Lora', ui-serif, Georgia, serif;
+
+    /* Brand: Kanagawa Wave & Kinpaku Gold */
+    --color-navy: #0A192F;
+    --color-indigo-brand: #1B4965;
+    --color-ivory: #F7F4EE;
+    --color-paper: #FFFEFA;
+    --color-gold: #C5A059;
+    --color-gold-light: #E7CF9B;
+    --color-gold-dark: #9E7D3B;
+    --color-line: #E5DFD3;
+    --color-sakura-pink: #F9CAD4;
+    --color-sakura-rose: #DE6B83;
+
+    --color-white: #FFFEFA;
+
+    /* gray -> washi warm neutrals */
+    --color-gray-50: #FAF8F2;
+    --color-gray-100: #F4F0E6;
+    --color-gray-200: #E6E0D3;
+    --color-gray-300: #D3CBC0;
+    --color-gray-400: #A59C8F;
+    --color-gray-500: #786F63;
+    --color-gray-600: #574F44;
+    --color-gray-700: #3D372E;
+    --color-gray-800: #24201A;
+    --color-gray-900: #0A192F;
+    --color-gray-950: #050E1A;
+
+    /* indigo -> Prussian blue & Aizome indigo scale */
+    --color-indigo-50: #EFF5F9;
+    --color-indigo-100: #DCEAF3;
+    --color-indigo-200: #B8D4E5;
+    --color-indigo-300: #88B4D1;
+    --color-indigo-400: #548EB5;
+    --color-indigo-500: #2F6D96;
+    --color-indigo-600: #1B4965;
+    --color-indigo-700: #13384F;
+    --color-indigo-800: #0D2636;
+    --color-indigo-900: #0A192F;
+    --color-indigo-950: #050E1A;
+
+    /* slate/sky follow Kanagawa seafoam and wave tones */
+    --color-slate-900: #0A192F;
+    --color-sky-200: #B8D4E5;
+    --color-sky-500: #2F6D96;
+
+    /* status colors: Japanese garden moss & Urushi cinnabar lacquer */
+    --color-emerald-50: #F0F6F2;
+    --color-emerald-100: #D7EADF;
+    --color-emerald-200: #B9D9C5;
+    --color-emerald-300: #93C2A3;
+    --color-emerald-500: #4A8360;
+    --color-emerald-600: #386A4C;
+    --color-emerald-700: #2C543C;
+    --color-emerald-800: #22422F;
+
+    --color-green-50: #F0F6F2;
+    --color-green-200: #B9D9C5;
+    --color-green-700: #2C543C;
+
+    --color-rose-50: #FDF2F3;
+    --color-rose-100: #F9E0E3;
+    --color-rose-200: #F3C3C9;
+    --color-rose-600: #A83226;
+    --color-rose-900: #6B1C14;
+
+    --color-red-50: #FDF2F3;
+    --color-red-200: #F3C3C9;
+    --color-red-600: #A83226;
+    --color-red-700: #92281D;
+    --color-red-800: #6B1C14;
+
+    --color-amber-50: #FAF6ED;
+    --color-amber-100: #F4ECCF;
+    --color-amber-200: #EADAAA;
+    --color-amber-500: #C5A059;
+    --color-amber-700: #88682F;
+    --color-amber-800: #6A4F23;
+
+    --color-yellow-50: #FAF6ED;
+    --color-yellow-200: #EADAAA;
+    --color-yellow-800: #6A4F23;
+
+    /* refined luxury type weights */
+    --font-weight-semibold: 500;
+    --font-weight-bold: 600;
+    --font-weight-extrabold: 600;
+    --font-weight-black: 600;
+
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        background-color: var(--color-ivory);
+        color: var(--color-navy);
+        font-family: var(--font-sans);
+        overflow-x: hidden;
+    }
+    h1, h2 {
+        font-family: var(--font-serif);
+        letter-spacing: -0.01em;
+        color: var(--color-navy);
+    }
+    ::selection {
+        background: var(--color-gold);
+        color: var(--color-navy);
+    }
+    :focus-visible {
+        outline: 2px solid var(--color-indigo-brand);
+        outline-offset: 2px;
+    }
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer utilities {
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.97) translateY(4px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @keyframes pulseGlow {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.75;
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-fade-in-scale {
+        animation: fadeInScale 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-pulse-subtle {
+        animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    /* Sakura Falling Petals Animations */
+    @keyframes petalDriftDown {
+        0% {
+            top: -10%;
+            transform: translate3d(0, 0, 0) rotate(0deg);
+        }
+        100% {
+            top: 108%;
+            transform: translate3d(80px, 0, 0) rotate(360deg);
+        }
+    }
+
+    @keyframes petalFlutter {
+        0%, 100% {
+            transform: translateX(0px) rotateY(0deg) rotateZ(0deg);
+        }
+        25% {
+            transform: translateX(35px) rotateY(60deg) rotateZ(30deg);
+        }
+        50% {
+            transform: translateX(-25px) rotateY(180deg) rotateZ(90deg);
+        }
+        75% {
+            transform: translateX(45px) rotateY(270deg) rotateZ(180deg);
+        }
+    }
+
+    .petal-particle {
+        position: absolute;
+        top: -10%;
+        will-change: transform, top;
+        animation-name: petalDriftDown, petalFlutter;
+        animation-timing-function: linear, ease-in-out;
+        animation-iteration-count: infinite, infinite;
+        pointer-events: none;
+    }
+
+    /* Minimal Luxury Gold foil borders & accents */
+    .gold-foil-line {
+        background: linear-gradient(90deg, transparent 0%, rgba(197, 160, 89, 0.7) 30%, rgba(231, 207, 155, 0.95) 50%, rgba(197, 160, 89, 0.7) 70%, transparent 100%);
+    }
+
+    .gold-foil-text {
+        background: linear-gradient(135deg, #C5A059 0%, #F5E8C7 50%, #9E7D3B 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .border-luxury-gold {
+        border-color: rgba(197, 160, 89, 0.4);
+    }
+
+    /* Japanese Traditional Hanko Seal stamp */
+    .hanko-seal {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid #A83226;
+        color: #A83226;
+        font-family: var(--font-serif);
+        font-weight: 700;
+        line-height: 1;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 1px rgba(168, 50, 38, 0.25);
+        user-select: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .petal-particle {
+        animation: none !important;
+        display: none !important;
+    }
+}
+
