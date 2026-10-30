@@ -87,7 +87,7 @@
                 },
 
                 fetchMessages() {
-                    fetch(`/chat/direct/${recipientId}?after=${this.lastMessageId}`, {
+                    fetch(`/messages/direct/${recipientId}?after=${this.lastMessageId}`, {
                         headers: {
                             'Accept': 'application/json',
                             'X-Requested-With': 'XMLHttpRequest'
@@ -109,7 +109,7 @@
                     this.sending = true;
                     this.errorMessage = '';
 
-                    fetch(`/chat/direct/${recipientId}`, {
+                    fetch(`/messages/direct/${recipientId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

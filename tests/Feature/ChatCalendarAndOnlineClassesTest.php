@@ -84,19 +84,19 @@ class ChatCalendarAndOnlineClassesTest extends TestCase
         // Student 2 is NOT enrolled in Course 1
         // Attempt to read -> 403 Forbidden
         $readResponse = $this->actingAs($this->student2)
-            ->getJson("/chat/courses/{$this->course1->id}");
+            ->getJson("/messages/courses/{$this->course1->id}");
         $readResponse->assertStatus(403);
 
         // Attempt to send -> 403 Forbidden
         $sendResponse = $this->actingAs($this->student2)
-            ->postJson("/chat/courses/{$this->course1->id}", [
+            ->postJson("/messages/courses/{$this->course1->id}", [
                 'body' => 'I should not be able to post here.',
             ]);
         $sendResponse->assertStatus(403);
 
         // Enrolled Student 1 CAN read and send
         $validSend = $this->actingAs($this->student1)
-            ->postJson("/chat/courses/{$this->course1->id}", [
+            ->postJson("/messages/courses/{$this->course1->id}", [
                 'body' => 'Hello classmates!',
             ]);
         $validSend->assertStatus(201);
@@ -107,20 +107,20 @@ class ChatCalendarAndOnlineClassesTest extends TestCase
         ]);
 
         $validRead = $this->actingAs($this->student1)
-            ->getJson("/chat/courses/{$this->course1->id}");
+            ->getJson("/messages/courses/{$this->course1->id}");
         $validRead->assertStatus(200);
         $validRead->assertJsonFragment(['body' => 'Hello classmates!']);
 
         // Course instructor CAN read and send
         $instructorSend = $this->actingAs($this->instructor1)
-            ->postJson("/chat/courses/{$this->course1->id}", [
+            ->postJson("/messages/courses/{$this->course1->id}", [
                 'body' => 'Welcome to the course discussion.',
             ]);
         $instructorSend->assertStatus(201);
 
         // Admin CAN read
         $adminRead = $this->actingAs($this->admin)
-            ->getJson("/chat/courses/{$this->course1->id}");
+            ->getJson("/messages/courses/{$this->course1->id}");
         $adminRead->assertStatus(200);
     }
 
@@ -129,18 +129,18 @@ class ChatCalendarAndOnlineClassesTest extends TestCase
         // Student 1 shares Course 1 with Instructor 1, but NOT with Instructor 2
         // Attempting to message Instructor 2 -> 403 Forbidden
         $readResponse = $this->actingAs($this->student1)
-            ->getJson("/chat/direct/{$this->instructor2->id}");
+            ->getJson("/messages/direct/{$this->instructor2->id}");
         $readResponse->assertStatus(403);
 
         $sendResponse = $this->actingAs($this->student1)
-            ->postJson("/chat/direct/{$this->instructor2->id}", [
+            ->postJson("/messages/direct/{$this->instructor2->id}", [
                 'body' => 'Unsolicited message.',
             ]);
         $sendResponse->assertStatus(403);
 
         // Student 1 CAN message Instructor 1 (shared course)
         $validDirect = $this->actingAs($this->student1)
-            ->postJson("/chat/direct/{$this->instructor1->id}", [
+            ->postJson("/messages/direct/{$this->instructor1->id}", [
                 'body' => 'Hello professor!',
             ]);
         $validDirect->assertStatus(201);
@@ -157,13 +157,13 @@ class ChatCalendarAndOnlineClassesTest extends TestCase
         $payload = '<script>alert("XSS")</script>&"test"';
 
         $this->actingAs($this->student1)
-            ->postJson("/chat/courses/{$this->course1->id}", [
+            ->postJson("/messages/courses/{$this->course1->id}", [
                 'body' => $payload,
             ])
             ->assertStatus(201);
 
         $response = $this->actingAs($this->student1)
-            ->getJson("/chat/courses/{$this->course1->id}");
+            ->getJson("/messages/courses/{$this->course1->id}");
 
         $response->assertStatus(200);
         $escaped = e($payload);

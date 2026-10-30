@@ -103,13 +103,13 @@ Route::middleware(['auth', 'not.suspended'])->group(function () {
     Route::post('/student/lessons/{lesson}/complete', [StudentLearningController::class, 'completeLesson'])->name('student.lessons.complete');
 
     // Chat Routes (Throttled posting at 30 messages/minute)
-    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
-    Route::get('/chat/offerings/{offering}', [ChatController::class, 'offeringRoom'])->name('chat.offering');
-    Route::post('/chat/offerings/{offering}', [ChatController::class, 'sendOfferingMessage'])->middleware('throttle:30,1')->name('chat.offering.send');
-    Route::get('/chat/courses/{course}', [ChatController::class, 'courseRoom'])->name('chat.course');
-    Route::post('/chat/courses/{course}', [ChatController::class, 'sendCourseMessage'])->middleware('throttle:30,1')->name('chat.course.send');
-    Route::get('/chat/direct/{recipient}', [ChatController::class, 'directRoom'])->name('chat.direct');
-    Route::post('/chat/direct/{recipient}', [ChatController::class, 'sendDirectMessage'])->middleware('throttle:30,1')->name('chat.direct.send');
+    Route::get('/messages', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/messages/offerings/{offering}', [ChatController::class, 'offeringRoom'])->name('chat.offering');
+    Route::post('/messages/offerings/{offering}', [ChatController::class, 'sendOfferingMessage'])->middleware('throttle:30,1')->name('chat.offering.send');
+    Route::get('/messages/courses/{course}', [ChatController::class, 'courseRoom'])->name('chat.course');
+    Route::post('/messages/courses/{course}', [ChatController::class, 'sendCourseMessage'])->middleware('throttle:30,1')->name('chat.course.send');
+    Route::get('/messages/direct/{recipient}', [ChatController::class, 'directRoom'])->name('chat.direct');
+    Route::post('/messages/direct/{recipient}', [ChatController::class, 'sendDirectMessage'])->middleware('throttle:30,1')->name('chat.direct.send');
 
     // Schedule
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');

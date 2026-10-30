@@ -309,7 +309,7 @@
                 },
 
                 fetchMessages() {
-                    fetch(`/chat/courses/${courseId}?after=${this.lastMessageId}`, {
+                    fetch(`/messages/courses/${courseId}?after=${this.lastMessageId}`, {
                         headers: {
                             'Accept': 'application/json',
                             'X-Requested-With': 'XMLHttpRequest'
@@ -331,7 +331,7 @@
                     this.sending = true;
                     this.errorMessage = '';
 
-                    fetch(`/chat/courses/${courseId}`, {
+                    fetch(`/messages/courses/${courseId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

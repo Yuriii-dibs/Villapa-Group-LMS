@@ -12,6 +12,9 @@
             $itemsByDay[$d] = [];
         }
         foreach ($monthItems as $item) {
+            if (! $item->starts_at) {
+                continue;
+            }
             $dayNum = (int) $item->starts_at->format('j');
             if (isset($itemsByDay[$dayNum])) {
                 $itemsByDay[$dayNum][] = $item;
@@ -29,7 +32,7 @@
              openCreateModal: false,
              selectedDay: {{ $isCurrentMonth ? $todayDay : 1 }},
              selectedItems: [],
-             allDaysItems: @js($itemsByDay),
+             allDaysItems: {!! $itemsByDayJsJson !!},
              selectDay(day) {
                  this.selectedDay = day;
                  this.selectedItems = this.allDaysItems[day] || [];
@@ -207,10 +210,11 @@
             @else
                 <div class="divide-y divide-gray-100 space-y-3">
                     @foreach ($monthItems as $item)
+                        @continue(! $item->starts_at)
                         <div class="pt-3 flex flex-col space-y-1.5">
                             <div class="flex justify-between items-center">
                                 <span class="text-xs font-bold text-gray-900">
-                                    {{ $item->starts_at->format('D, M d &bull; g:i A') }}
+                                    {{ $item->starts_at->format('D, M d') }} &bull; {{ $item->starts_at->format('g:i A') }}
                                 </span>
                                 <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded
                                     {{ $item->type === 'online_class' ? 'bg-rose-100 text-rose-800' : ($item->type === 'personal' ? 'bg-purple-100 text-purple-800' : ($item->type === 'exam' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800')) }}">
@@ -256,6 +260,7 @@
             @else
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach ($upcomingItems as $upItem)
+                        @continue(! $upItem->starts_at)
                         <div class="p-4 rounded-xl border border-gray-200 bg-gray-50 flex flex-col justify-between space-y-2">
                             <div>
                                 <div class="flex justify-between items-start">

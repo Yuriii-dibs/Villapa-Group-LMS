@@ -119,7 +119,7 @@
                 },
 
                 fetchMessages() {
-                    let url = `/chat/offerings/${offeringId}?after=${this.lastMessageId}`;
+                    let url = `/messages/offerings/${offeringId}?after=${this.lastMessageId}`;
                     fetch(url, {
                         headers: {
                             'Accept': 'application/json',
@@ -149,7 +149,7 @@
                     this.sending = true;
                     this.errorMessage = '';
 
-                    fetch(`/chat/offerings/${offeringId}`, {
+                    fetch(`/messages/offerings/${offeringId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -43,6 +43,38 @@ class CalendarController extends Controller
         $prevMonth = $currentDate->copy()->subMonth();
         $nextMonth = $currentDate->copy()->addMonth();
 
+        $itemsByDayJs = [];
+        for ($d = 1; $d <= $currentDate->daysInMonth; $d++) {
+            $itemsByDayJs[$d] = [];
+        }
+        foreach ($monthItems as $item) {
+            if (! $item->starts_at) {
+                continue;
+            }
+            $dayNum = (int) $item->starts_at->format('j');
+            if (! isset($itemsByDayJs[$dayNum])) {
+                continue;
+            }
+            $itemsByDayJs[$dayNum][] = [
+                'id' => $item->id,
+                'raw_id' => $item->raw_id,
+                'title' => $item->title,
+                'description' => $item->description,
+                'type' => $item->type,
+                'starts_at' => $item->starts_at->toIso8601String(),
+                'ends_at' => $item->ends_at?->toIso8601String(),
+                'course_title' => $item->course_title,
+                'is_session' => (bool) $item->is_session,
+                'session_url' => $item->session_url,
+                'can_delete' => (bool) $item->can_delete,
+            ];
+        }
+
+        $itemsByDayJsJson = json_encode(
+            $itemsByDayJs,
+            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_INVALID_UTF8_SUBSTITUTE | JSON_UNESCAPED_SLASHES
+        ) ?: '{}';
+
         return view('calendar.index', compact(
             'monthItems',
             'upcomingItems',
@@ -53,7 +85,8 @@ class CalendarController extends Controller
             'nextMonth',
             'myCourses',
             'canCreateGeneral',
-            'canCreateCourseEvent'
+            'canCreateCourseEvent',
+            'itemsByDayJsJson'
         ));
     }
 
