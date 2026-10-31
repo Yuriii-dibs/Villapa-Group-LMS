@@ -193,7 +193,7 @@ class CalendarService
             }
         }
 
-        return $events->merge($sessions)->merge($offeringItems)->sortBy('starts_at')->values();
+        return $events->toBase()->merge($sessions->toBase())->merge($offeringItems)->sortBy('starts_at')->values();
     }
 
     /**

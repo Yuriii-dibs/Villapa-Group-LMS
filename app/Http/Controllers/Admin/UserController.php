@@ -9,9 +9,11 @@ use App\Models\Section;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\AccountApproved;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
@@ -290,7 +292,9 @@ class UserController extends Controller
         }
         $user->save();
 
-        return back()->with('status', "Instructor {$user->name} has been approved and activated.");
+        $notified = $this->notifyApproved($user, 'faculty');
+
+        return back()->with('status', "Instructor {$user->name} has been approved and activated." . $this->notifyNote($notified));
     }
 
     /**
@@ -311,6 +315,32 @@ class UserController extends Controller
         $user->program_id = $validated['program_id'] ?: null;
         $user->save();
 
-        return back()->with('status', "Student account for {$user->name} has been approved and activated.");
+        $notified = $this->notifyApproved($user, 'student');
+
+        return back()->with('status', "Student account for {$user->name} has been approved and activated." . $this->notifyNote($notified));
+    }
+
+    /**
+     * Notify the account owner (in-app bell bubble) that their account was approved.
+     * A mail failure must never block the approval itself, so errors are only logged.
+     */
+    private function notifyApproved(User $user, string $roleLabel): bool
+    {
+        try {
+            $user->notify(new AccountApproved($roleLabel));
+
+            return true;
+        } catch (\Throwable $e) {
+            Log::warning("Approval notification failed for user {$user->id}: " . $e->getMessage());
+
+            return false;
+        }
+    }
+
+    private function notifyNote(bool $notified): string
+    {
+        return $notified
+            ? ' They will see an approval notification when they log in.'
+            : ' (The in-app notification could not be saved - check that the notifications table exists.)';
     }
 }

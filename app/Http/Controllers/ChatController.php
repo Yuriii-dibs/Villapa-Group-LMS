@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\Role;
 use App\Models\SubjectOffering;
 use App\Models\User;
+use App\Notifications\NewMessage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -140,6 +141,8 @@ class ChatController extends Controller
             abort(403, 'You are not enrolled in or teaching this subject offering and cannot access its group chat.');
         }
 
+        NewMessage::clear($user, 'offering:' . $offering->id);
+
         $offering->load(['subject', 'section', 'academicTerm', 'instructor', 'students']);
 
         if ($request->wantsJson() || $request->ajax()) {
@@ -196,6 +199,21 @@ class ChatController extends Controller
             'recipient_id' => null,
             'body' => $request->validated('body'),
         ]);
+
+        // Bell notification for everyone else in this subject's group chat
+        $offering->loadMissing('subject');
+        $roomTitle = 'New message in ' . ($offering->subject->title ?? 'class chat');
+        $roomUrl = route('chat.offering', $offering);
+        $members = $offering->students()->where('users.id', '!=', $user->id)->get();
+        if ($offering->instructor_id && $offering->instructor_id !== $user->id) {
+            $instructor = User::find($offering->instructor_id);
+            if ($instructor) {
+                $members->push($instructor);
+            }
+        }
+        foreach ($members as $member) {
+            NewMessage::send($member, 'offering:' . $offering->id, $roomTitle, $user->name . ': ' . $message->body, $roomUrl);
+        }
 
         if ($request->wantsJson()) {
             return response()->json([
@@ -305,6 +323,8 @@ class ChatController extends Controller
             abort(403, 'Direct messages are only permitted between a student and an instructor who share a course.');
         }
 
+        NewMessage::clear($user, 'dm:' . $recipient->id);
+
         if ($request->wantsJson() || $request->ajax()) {
             $query = Message::whereNull('course_id')
                 ->where(function ($q) use ($user, $recipient) {
@@ -354,6 +374,8 @@ class ChatController extends Controller
             'recipient_id' => $recipient->id,
             'body' => $request->validated('body'),
         ]);
+
+        NewMessage::send($recipient, 'dm:' . $user->id, 'New message from ' . $user->name, $message->body, route('chat.direct', $user));
 
         if ($request->wantsJson()) {
             return response()->json([

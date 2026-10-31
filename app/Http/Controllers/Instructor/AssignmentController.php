@@ -7,6 +7,7 @@ use App\Models\Subject;
 use App\Models\SubjectAssignment;
 use App\Models\SubjectOffering;
 use App\Models\SubjectSubmission;
+use App\Notifications\NewAssignment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -84,8 +85,12 @@ class AssignmentController extends Controller
 
         $assignment = SubjectAssignment::create($validated);
 
+        // Bell notification for every student enrolled in this subject
+        $notified = NewAssignment::notifyStudents($assignment);
+
         return redirect()->route('instructor.assignments.index')
-            ->with('status', 'Assignment "' . $assignment->title . '" created successfully.');
+            ->with('status', 'Assignment "' . $assignment->title . '" created successfully. '
+                . ($notified > 0 ? "{$notified} student(s) notified." : 'No enrolled students to notify yet.'));
     }
 
     /**

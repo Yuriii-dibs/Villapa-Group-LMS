@@ -38,10 +38,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? config('app.name', 'UEP LMS') }}</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-ivory font-sans text-navy antialiased relative">
 <x-petals />
+<x-notification-bell />
 <div x-data="{ open: false }" class="min-h-screen lg:flex relative z-10">
 
     {{-- Mobile top bar --}}

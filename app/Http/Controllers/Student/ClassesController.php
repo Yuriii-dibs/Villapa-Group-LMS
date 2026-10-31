@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use App\Models\SubjectAssignment;
 use App\Models\SubjectSubmission;
+use App\Notifications\NewAssignment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -163,6 +164,8 @@ class ClassesController extends Controller
         if (! $isEnrolled && ! $user->hasRole([\App\Models\Role::ADMIN, \App\Models\Role::SUPER_ADMIN])) {
             abort(403, 'You are not enrolled in the subject offering for this assignment.');
         }
+
+        NewAssignment::clear($user, $assignment->id);
 
         $assignment->load(['subject', 'submissions' => fn($q) => $q->where('user_id', $user->id)]);
         $submission = $assignment->submissions->first();

@@ -304,7 +304,8 @@
                                                     @if ($isStudent)
                                                         <button type="button" @click="approveStudentOpen = true"
                                                                 title="Approve Student Account"
-                                                                class="inline-flex items-center gap-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white px-2.5 py-1 text-xs font-bold shadow-2xs transition">
+                                                                style="background-color:#f59e0b;color:#ffffff;"
+                                                                class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-bold shadow-2xs transition">
                                                             <span>Approve</span>
                                                         </button>
                                                     @elseif ($isInstructor)
@@ -603,7 +604,7 @@
                                                                         </select>
                                                                     </div>
                                                                     <div class="flex flex-row-reverse gap-2 pt-2">
-                                                                        <button type="submit" class="rounded-xl bg-amber-500 px-4 py-2 text-xs font-bold text-white hover:bg-amber-600 shadow-sm transition">
+                                                                        <button type="submit" style="background-color:#f59e0b;color:#ffffff;" class="rounded-xl px-4 py-2 text-xs font-bold shadow-sm transition">
                                                                             Approve & Activate
                                                                         </button>
                                                                         <button type="button" @click="approveStudentOpen = false" class="rounded-xl border border-line bg-white px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-[#FAF8F5] transition">

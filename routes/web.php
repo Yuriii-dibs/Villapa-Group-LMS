@@ -31,6 +31,7 @@ use App\Http\Controllers\Instructor\LessonController as InstructorLessonControll
 use App\Http\Controllers\Instructor\OfferingController as InstructorOfferingController;
 use App\Http\Controllers\Instructor\AssignmentController as InstructorAssignmentController;
 use App\Http\Controllers\Instructor\AnnouncementController as InstructorAnnouncementController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\ClassesController as StudentClassesController;
@@ -80,6 +81,10 @@ Route::get('/register/pending', fn () => view('auth.register-pending'))->name('r
 // Authenticated Account & Profile Routes
 Route::middleware(['auth', 'not.suspended'])->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+    // Notifications (bell)
+    Route::post('/notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'read'])->name('notifications.read');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
